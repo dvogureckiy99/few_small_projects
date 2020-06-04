@@ -14,5 +14,5 @@
 [Дисциплина "МИКРОПРОЦЕССОРНАЯ ТЕХНИКА В МЕХАТРОНИКЕ 
 И РОБОТОТЕХНИКЕ" ](C++code/MTinM&R/README.md)
 
-[по дисциплине Программирование и основы алгоритмизации в MATLAB / 
-in the discipline Programming and the basics of algorithmization in MATLAB](C++code/P&B0A/README.md)
+[Дисциплина Программирование и основы алгоритмизации в MATLAB / 
+in the discipline Programming and the basics of algorithmization in MATLAB](C++code/P&BoA/README.md)
