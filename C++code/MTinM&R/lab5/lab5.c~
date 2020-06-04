@@ -1,59 +1,59 @@
-/*
- * Created: 11.09.2019 11:46:22
- * Author: Student   
- * 
- * Variant 8 
- *  
- */
-   
- 
-#include <define.h>
-         
-interrupt [EXT_INT7] void extIntIsr(void)
-{
-    // Если высокий уровень на ножке, то
-    // это начало импульса
-    if(BIT_IS_SET(PINE, 7))
-    { 
-        // Обнуляем счётный регистр таймера №3
-        TCNT3H = 0;
-        TCNT3L = 0;
-    }
-    else
-    {  
-        
-        // Если низкий уровень на ножке, то
-        // это конец импульса
-        // Сохраняем текущее значение счётного регистра
-        // таймера №3
-        impulseWidth = TCNT3L;         //tick
-        impulseWidth += (TCNT3H) << 8; //tick   
-    }
-}
-
-void main(void)
-{
-    unsigned int length;    
-
-    init_segments();
-    DDRE = _BV(DDE6);  
-          
-    EICRB = _BV(ISC70) ;//на оба
-    EIMSK = _BV(INT7);
-    #asm("sei");  //разрешение прерываний        
-    
-    // Инициализация таймера №3
-    TCCR3B =  _BV(CS31);    //freq=11.0529/8=1.382 MHz T=724 ns            
-    
-    while(1)        
-    {   
-        length =impulseWidth*prop; //cm     
-        BitSet(PORTE,DDE6);   
-        delay_us(10); 
-        BitClr(PORTE,DDE6);
-        delay_ms(50);    
-    
-        indic_uint(length);
-    }
-}
-
+/*
+ * Created: 11.09.2019 11:46:22
+ * Author: Student   
+ * 
+ * Variant 8 
+ *  
+ */
+   
+ 
+#include <define.h>
+         
+interrupt [EXT_INT7] void extIntIsr(void)
+{
+    // Р•СЃР»Рё РІС‹СЃРѕРєРёР№ СѓСЂРѕРІРµРЅСЊ РЅР° РЅРѕР¶РєРµ, С‚Рѕ
+    // СЌС‚Рѕ РЅР°С‡Р°Р»Рѕ РёРјРїСѓР»СЊСЃР°
+    if(BIT_IS_SET(PINE, 7))
+    { 
+        // РћР±РЅСѓР»СЏРµРј СЃС‡С‘С‚РЅС‹Р№ СЂРµРіРёСЃС‚СЂ С‚Р°Р№РјРµСЂР° в„–3
+        TCNT3H = 0;
+        TCNT3L = 0;
+    }
+    else
+    {  
+        
+        // Р•СЃР»Рё РЅРёР·РєРёР№ СѓСЂРѕРІРµРЅСЊ РЅР° РЅРѕР¶РєРµ, С‚Рѕ
+        // СЌС‚Рѕ РєРѕРЅРµС† РёРјРїСѓР»СЊСЃР°
+        // РЎРѕС…СЂР°РЅСЏРµРј С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ СЃС‡С‘С‚РЅРѕРіРѕ СЂРµРіРёСЃС‚СЂР°
+        // С‚Р°Р№РјРµСЂР° в„–3
+        impulseWidth = TCNT3L;         //tick
+        impulseWidth += (TCNT3H) << 8; //tick   
+    }
+}
+
+void main(void)
+{
+    unsigned int length;    
+
+    init_segments();
+    DDRE = _BV(DDE6);  
+          
+    EICRB = _BV(ISC70) ;//РЅР° РѕР±Р°
+    EIMSK = _BV(INT7);
+    #asm("sei");  //СЂР°Р·СЂРµС€РµРЅРёРµ РїСЂРµСЂС‹РІР°РЅРёР№        
+    
+    // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‚Р°Р№РјРµСЂР° в„–3
+    TCCR3B =  _BV(CS31);    //freq=11.0529/8=1.382 MHz T=724 ns            
+    
+    while(1)        
+    {   
+        length =impulseWidth*prop; //cm     
+        BitSet(PORTE,DDE6);   
+        delay_us(10); 
+        BitClr(PORTE,DDE6);
+        delay_ms(50);    
+    
+        indic_uint(length);
+    }
+}
+

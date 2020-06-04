@@ -4,7 +4,7 @@
 #define DDRX_I2C DDRG
 #define HIGH(pin) (DDRX_I2C &= (~_BV(pin)))
 #define LOW(pin) (DDRX_I2C |= _BV(pin))
-#define PULSE 50 //us время импульса, определяет скорость передачи
+#define PULSE 50 //us РІСЂРµРјСЏ РёРјРїСѓР»СЊСЃР°, РѕРїСЂРµРґРµР»СЏРµС‚ СЃРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґР°С‡Рё
 
 void I2C_Start(void)
 {
@@ -16,7 +16,7 @@ void I2C_Start(void)
 }
 
 void I2C_SendByte(unsigned char data)
-{   //время на передачу 1 бита 3*PULSE  1 байт 24*PULSE
+{   //РІСЂРµРјСЏ РЅР° РїРµСЂРµРґР°С‡Сѓ 1 Р±РёС‚Р° 3*PULSE  1 Р±Р°Р№С‚ 24*PULSE
     unsigned char i; 
     LOW(SCL);
     delay_us(PULSE);
@@ -29,9 +29,9 @@ void I2C_SendByte(unsigned char data)
         LOW(SCL);
         delay_us(PULSE);
     }                          
-        LOW(SDA); //чтобы при подтверждении не произошла отправка стоп-состояния   
-        delay_us(PULSE);  //ждем пока ACK бит ведомого станет 1  
-        //подтверждаем ACK бит
+        LOW(SDA); //С‡С‚РѕР±С‹ РїСЂРё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРё РЅРµ РїСЂРѕРёР·РѕС€Р»Р° РѕС‚РїСЂР°РІРєР° СЃС‚РѕРї-СЃРѕСЃС‚РѕСЏРЅРёСЏ   
+        delay_us(PULSE);  //Р¶РґРµРј РїРѕРєР° ACK Р±РёС‚ РІРµРґРѕРјРѕРіРѕ СЃС‚Р°РЅРµС‚ 1  
+        //РїРѕРґС‚РІРµСЂР¶РґР°РµРј ACK Р±РёС‚
         HIGH(SCL);
         delay_us(PULSE);
         LOW(SCL);
@@ -53,13 +53,13 @@ unsigned char I2C_ReadByte(unsigned char ack)
         LOW(SCL);
         delay_us(PULSE); 
    } 
-   if(ack){HIGH(SDA);}else{LOW(SDA);}  //отправляем ACK-бит      
+   if(ack){HIGH(SDA);}else{LOW(SDA);}  //РѕС‚РїСЂР°РІР»СЏРµРј ACK-Р±РёС‚      
    delay_us(PULSE);   
    HIGH(SCL);
    delay_us(PULSE);
    LOW(SCL);
    delay_us(PULSE);      
-   //для окончания приема
+   //РґР»СЏ РѕРєРѕРЅС‡Р°РЅРёСЏ РїСЂРёРµРјР°
    LOW(SDA); 
    delay_us(PULSE);
    return readbyte;

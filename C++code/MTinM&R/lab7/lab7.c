@@ -8,9 +8,9 @@
 #include <define.h>
 
 void SPI_init()
-{    //MOSI — PORTG3 íà âûõîä 
-     //MISO — PORTG1 íà âõîä
-     //SCLK — PORTG0 íà âõîä
+{    //MOSI â€” PORTG3 Ð½Ð° Ð²Ñ‹Ñ…Ð¾Ð´ 
+     //MISO â€” PORTG1 Ð½Ð° Ð²Ñ…Ð¾Ð´
+     //SCLK â€” PORTG0 Ð½Ð° Ð²Ñ…Ð¾Ð´
      DDRG = _BV(MOSI) | _BV(SCLK) ; 
      BitSet(PORTG, SCLK) ; 
 }
@@ -26,7 +26,7 @@ void SPI_Write(char byte)
             BitSet(PORTG, MOSI);
         else
             BitClr(PORTG, MOSI); 
-        //èìïóëüñ äëÿ çàïèñè
+        //Ð¸Ð¼Ð¿ÑƒÐ»ÑŒÑ Ð´Ð»Ñ Ð·Ð°Ð¿Ð¸ÑÐ¸
         BitSet(PORTG, SCLK) ;
         delay_us(pulse);
         BitClr(PORTG, SCLK) ; 
@@ -53,7 +53,7 @@ unsigned long readAD7798()
 {
     unsigned char byte1, byte2, byte3;
     unsigned long result;
-    while(BIT_IS_SET(PING, MISO)); //îæèäàíèå íà÷àëà ïåðåäà÷è
+    while(BIT_IS_SET(PING, MISO)); //Ð¾Ð¶Ð¸Ð´Ð°Ð½Ð¸Ðµ Ð½Ð°Ñ‡Ð°Ð»Ð° Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‡Ð¸
     byte1 = SPI_Read();
     byte2 = SPI_Read();
     byte3 = SPI_Read();
@@ -94,7 +94,7 @@ void resetAD7798()
 
 #define TIMER_FREQ (_BV(CS02) | _BV(CS01))
 void initTimer()
-{   // Áûñòðûé ØÈÌ,  ñáðîñ PORTB4 ïî ñîâïàäíèþ ñ OCR0
+{   // Ð‘Ñ‹ÑÑ‚Ñ€Ñ‹Ð¹ Ð¨Ð˜Ðœ,  ÑÐ±Ñ€Ð¾Ñ PORTB4 Ð¿Ð¾ ÑÐ¾Ð²Ð¿Ð°Ð´Ð½Ð¸ÑŽ Ñ OCR0
     TCCR0 = _BV(WGM01) | _BV(WGM00) | _BV(COM01);
     DDRB |= _BV(4);
     OCR0 = 128;
@@ -104,7 +104,7 @@ void startAlarm()
     TCCR0 |= TIMER_FREQ;
 }
 void stopAlarm()
-{   //âûêëþ÷åíèå òàéìåðà
+{   //Ð²Ñ‹ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ð°
     TCCR0 &= ~TIMER_FREQ;
 }
 
@@ -114,13 +114,13 @@ void main(void)
     init_segments(); 
     initTimer(); 
     SPI_init(); 
-    resetAD7798();//  ñáðîñ ÀÖÏ
-    setAd7798();  //íàñòðîéêà íà ïîñòîÿííîå èçìåðåíèå 
+    resetAD7798();//  ÑÐ±Ñ€Ð¾Ñ ÐÐ¦ÐŸ
+    setAd7798();  //Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ° Ð½Ð° Ð¿Ð¾ÑÑ‚Ð¾ÑÐ½Ð½Ð¾Ðµ Ð¸Ð·Ð¼ÐµÑ€ÐµÐ½Ð¸Ðµ 
     while(1)
     { 
-       data = (char)(readAD7798()>>16); //ñîõðàíåíèå ñòàðøåãî áàéòà èçìåðåíèÿ                                                                    
+       data = (char)(readAD7798()>>16); //ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ ÑÑ‚Ð°Ñ€ÑˆÐµÐ³Ð¾ Ð±Ð°Ð¹Ñ‚Ð° Ð¸Ð·Ð¼ÐµÑ€ÐµÐ½Ð¸Ñ                                                                    
        indic_5bit(data); 
-       //âêëþ÷åíèå çâóêîâîãî îïîâåùíèÿ î ïåðâûøåíèè 16 
+       //Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð·Ð²ÑƒÐºÐ¾Ð²Ð¾Ð³Ð¾ Ð¾Ð¿Ð¾Ð²ÐµÑ‰Ð½Ð¸Ñ Ð¾ Ð¿ÐµÑ€Ð²Ñ‹ÑˆÐµÐ½Ð¸Ð¸ 16 
        if(data>16) {startAlarm();}else{stopAlarm();}    
        delay_ms(200);        
     }

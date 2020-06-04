@@ -5,6 +5,6 @@
 #define BitSet(var, bit) ((var) |= (1<<(bit)))
 
 //3
-#define MUX _BV(REFS0) //| _BV(ADLAR)) //ëåâîå âûğàâíèâàíèå  è Èñïîëüçóåìîå îïîğíîå íàïğÿæåíèå AVCC
+#define MUX _BV(REFS0) //| _BV(ADLAR)) //Ğ»ĞµĞ²Ğ¾Ğµ Ğ²Ñ‹Ñ€Ğ°Ğ²Ğ½Ğ¸Ğ²Ğ°Ğ½Ğ¸Ğµ  Ğ¸ Ğ˜ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ğ¾Ğµ Ğ¾Ğ¿Ğ¾Ñ€Ğ½Ğ¾Ğµ Ğ½Ğ°Ğ¿Ñ€ÑĞ¶ĞµĞ½Ğ¸Ğµ AVCC
 #define high(var)  (var>>8)
 #define low(var)    var
