@@ -1,5 +1,7 @@
 # МИКРОПРОЦЕССОРНАЯ ТЕХНИКА В МЕХАТРОНИКЕ И РОБОТОТЕХНИКЕ 
 
+[Сами задания в облаке](https://docs.google.com/open?id=1CA2zf5AFAy3CJsMyXklcW3A3PeOv1WmzH8NK7sJS2tw) или [sfsd](task_googldocs.gdoc)
+
 [Аннотация к лабораторным работам](Annotation.pdf)
 
 - В данных лабораторных работах были использованы макросы. Они находятся в файле [macro.h](lab6/lib/macro.h). 
@@ -22,7 +24,10 @@
 1. [отчет](lab8/lab8.pdf) и [основная программа](lab8/lab8.c)
 
  Лаба 9 и 10 написаны в Qt creator  integrated development environment which simplifies GUI application development.
- 
+
+[Ссылка на инструкцию по установке Qt creator от кафедры САУ](https://github.com/serykhelena/Guides/blob/master/windows_os/qt_opencv_mingw.md), 
+[мой fork](https://github.com/my000own000files1/Guides/blob/master/windows_os/qt_opencv_mingw.md)
+
 [Пример для проверки работоспособности](lab9&10/example/main.cpp)
  
 9. [основная программа](lab9&10/lab9/lab9.cpp)
