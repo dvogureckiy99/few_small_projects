@@ -10,3 +10,4 @@
 1. [Пример programm_spi_2_slave.ino](programm_spi_2_slave.ino) реализации протокола SPI slave модель MSBFIRST mode 0 передача 8 бит если передача состоялась, то лампочка загорается
 . Chip type ATmega168 at 16 MHz.
 1. В [проекте BarometricPressureSensor_SCP1000_modif.ino](BarometricPressureSensor_SCP1000_modif.ino) производилось измерение давлениея и температуры с SCP1000 Barometric Pressure Sensor.
+1. 
