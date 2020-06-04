@@ -1,0 +1,9 @@
+VERSION:3 SOURCE_TIMESTAMP:4F5175BD
+NODE:M LEVEL:0 LINE:1 "SIGN"
+NODE:M LEVEL:0 LINE:2 "VOID"
+NODE:C LEVEL:0 LINE:5 "segments -> RAM:????"
+NODE:F LEVEL:0 LINE:6 "Digit(unsigned int val,unsigned char m)"
+NODE:F LEVEL:0 LINE:27 "indic_int(int val)"
+NODE:F LEVEL:0 LINE:78 "indic_uint(unsigned int val)"
+NODE:F LEVEL:0 LINE:114 "indic_5bit(unsigned char byte)"
+NODE:F LEVEL:0 LINE:203 "init_segments(void)"

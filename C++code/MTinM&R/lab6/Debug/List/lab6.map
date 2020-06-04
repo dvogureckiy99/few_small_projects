@@ -1,0 +1,29 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+_seed                                                                             0x0516       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+LCD_pos                                                                           0x000B1     11
+LCD_uint                                                                          0x000BC     40
+LCD_message                                                                       0x000E4     21
+LCD_init                                                                          0x000F9     31
+LCD_string                                                                        0x00118     16
+Digit                                                                             0x00128     33
+Code                                                                              0x00149     35
+I2C_SendByte                                                                      0x00175     38
+I2C_Stop                                                                          0x0019B      9
+I2C_ReadByte                                                                      0x001A4     55
+readTemperature                                                                   0x001DF     38
+setDs1631                                                                         0x00205      9
+main                                                                              0x0020E     41

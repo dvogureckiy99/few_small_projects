@@ -1,0 +1,32 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+segments                                                                          0x0500      12
+_seed                                                                             0x050C       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+Kp                                                                                R4,R5        2
+Kd                                                                                R6,R7        2
+count                                                                             R8,R9        2
+button                                                                            R11          1
+flag_control                                                                      R10          1
+f_Kp                                                                              R13          1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+Digit                                                                             0x00091     32
+indic_int                                                                         0x000B1     62
+indic_uint                                                                        0x000EF     40
+init_segments                                                                     0x00117     10
+NameIsr                                                                           0x00121     43
+int1Isr                                                                           0x0014C     38
+readAdc                                                                           0x00172     23
+main                                                                              0x00189    229
+abs                                                                               0x0026E     10

@@ -1,0 +1,151 @@
+/*
+* lab8 
+ * Created: 11.09.2019 11:46:22
+ * Author: Student   
+ * 
+ * Variant 8 
+ * Нужно добавить проверку кнопку энкодера     
+ * 
+  По нажатию на кнопку энкодера можно менять параметр для настройки.
+   Светодиод индицирует параметр, который выбран в данный момент:
+   — red Kp 
+   — green Kd
+ */
+ 
+#include <define.h>
+
+interrupt [EXT_INT2] void NameIsr(void)
+{
+    if (BIT_IS_CLEAR(PIND, 2))
+    { 
+        f_Kp = ~f_Kp;    
+    }
+
+
+}
+
+interrupt [EXT_INT1] void int1Isr(void)
+{
+    // Если прерывание по фронту
+    if(BIT_IS_SET(PIND, 1))
+    {
+        // Настраиваем прерывание на срез
+        EICRA = _BV(ISC11);
+        
+        if(BIT_IS_CLEAR(PIND, 0))
+        {   
+            if(f_Kp){  Kp+=1;}else{ Kd+=1; };
+        }
+        else    // Если на второй ножке высокий уровень
+        {
+            if(f_Kp){  Kp-=1;}else{ Kd-=1; };
+        }
+    }
+    else
+    {
+        // Если прерывание по срезу
+        // Настраиваем прерывание на фронт
+        EICRA = _BV(ISC11) | _BV(ISC10);
+        
+        if(BIT_IS_CLEAR(PIND, 0))
+        {
+            if(f_Kp){  Kp-=1;}else{ Kd-=1; };
+        }
+        else        // Если на второй ножке высокий уровень
+        {
+            if(f_Kp){  Kp+=1;}else{ Kd+=1; };
+        }
+    }       
+    if(Kp<1)
+    {
+        Kp=1;
+    } 
+    if(Kd<1)
+    {
+        Kp=1;
+    }            
+}
+
+
+unsigned int readAdc(unsigned char channel)
+{
+    ADMUX = MUX | channel;
+    delay_us(10);
+    ADCSRA |= _BV(ADSC); // Запуск преобразования
+    while(BIT_IS_CLEAR(ADCSRA, ADIF));   // Ожидание завершения преобразования
+    ADCSRA |= _BV(ADIF);   // Сброс флага прерывания АЦП
+    return ADCL+(ADCH<<8);
+}
+
+void main(void)
+{
+    init_segments();   
+    #asm("sei");  //разрешение прерываний
+    EICRA |= _BV(ISC11) | _BV(ISC10) ;//на фронт
+    EIMSK |= _BV(INT1); 
+    // Инициализация портов ввода/вывода
+    DDRB |= _BV(5) ;//ШИМ управления
+    DDRG |= _BV(3);//направление тока 
+    //DDRD &= ~_BV(2); //кнопка
+    //прерывание кнопки
+    EICRA |= _BV(ISC21) ;//| _BV(ISC20) ;
+    EIMSK |= _BV(INT2) ;
+    DDRE |= _BV(5) | _BV (4) ;
+    PORTE  = 0;   
+    // Инициализация АЦП
+    ADCSRA = _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); //freq=11.0529/128=0,08635078125 MHz T=11.58 us/tick 
+    // Инициализация таймера 1
+    // Быстрая ШИМ 8 бит
+    TCCR1A = _BV(COM1A1) | _BV(WGM10);
+    TCCR1B = _BV(WGM12) | _BV(CS10);
+    while(1)
+    {
+        int field; // Значение с датчика Холла
+        int ref; // Задание
+        int error = 0; // Ошибка управления
+        int control; // Сигнал управления 
+        int error_last=0; //   Ошибка управления последнее
+        //управления
+        // Получение и фильтрация сигнала с датчика
+        // магнитного поля
+        field = (readAdc(1) + readAdc(1) +
+        readAdc(1) + readAdc(1) + readAdc(1)) / 5;
+        field -= 512;   //если  показания датчика равны 512, то field равно 0
+        
+        ref = readAdc(3); // Получение задания с ручки
+        //потенциомера
+        // Расчёт ошибки управления
+        error = ref - field;
+        // Расчёт сигнала управления
+        control = error/Kp+(error-error_last)/Kd;
+        error_last=error;
+        
+        // Ограничение сигнала управления
+        if(control > 255)
+        {
+            control = 255;
+        }
+        if(control < -255)
+        {
+            control = -255;
+        }    
+        
+        // Установка сигнала управления
+        if(control >= 0)
+        {
+            PORTG &= ~_BV(3); //установка положительного тока
+            OCR1AL = (unsigned char)control; 
+        }
+        else
+        {
+            PORTG |= _BV(3); //установка отрицательного тока
+            OCR1AL = (unsigned char)(-control);
+        }
+        
+        
+        BitClr(PORTE,4);
+        BitClr(PORTE,5);    
+        PORTE = BitSet(PORTE,(f_Kp ?  5 : 4 ));        
+        indic_uint( f_Kp ? Kp : Kd );
+    }
+}

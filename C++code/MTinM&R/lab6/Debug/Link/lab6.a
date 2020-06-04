@@ -1,0 +1,993 @@
+;/*
+; * Created: 11.09.2019 11:46:22
+; * Author: Student
+; * lab6
+; * Variant 8
+; *
+; */
+;
+;#include <define.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x1C
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x18
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0x14
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0x1C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;
+;#include <io.h>
+;#include <mega128a.h>
+;#include <delay.h>
+;
+;#define CMD 1
+;#define DATA 0
+;#define DISPLAY 1
+;#define CURSOR 0
+;#define RHIGHT 1
+;#define LEFT   0
+;#define ON 1
+;#define OFF 0
+;#define EIGHT 1
+;#define FOUR 0
+;#define ONE 0
+;#define TWO 1
+;#define LOWERCASE  0
+;#define UPPERCASE  1
+;#define RS 7 // выбор регистра
+;#define E 6 // строб передачи
+;
+;//установка адреса DDRAM (позиция символа)
+;//pos = 0 ... 39
+;//line = 0 — first line
+;//line = 1 — second line
+;void LCD_pos(char pos, char line)
+; 0000 0009 {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+;   LCD_message(((1<<7)|(pos+line*64)),CMD);
+;PCODE: $0000000F VOL: 0
+;	pos -> Y+1
+;	line -> Y+0
+;PCODE: $00000010 VOL: 0
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+;PCODE: $00000013 VOL: 0
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+;PCODE: $00000019 VOL: 0
+;}
+;PCODE: $0000001A VOL: 0
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+;
+;//Вывод числового значения (max 5 десятичных разрядов и больше нуля)
+;void LCD_uint(int value)
+;{
+;PCODE: $0000001D VOL: 0
+;PCODE: $0000001E VOL: 0
+;    int i ;
+;    unsigned char flag_first_num = 0 ;
+;    unsigned char number;
+;    if (value<0) LCD_message(0b10010110,DATA);//выводим минус
+;PCODE: $0000001F VOL: 0
+;PCODE: $00000020 VOL: 0
+;	value -> Y+4
+;	i -> R16,R17
+;	flag_first_num -> R19
+;	number -> R18
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+;PCODE: $00000023 VOL: 0
+;PCODE: $00000024 VOL: 0
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+;    for(i=1; i<=5; i++)
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+;PCODE: $0000002F VOL: 0
+;PCODE: $00000030 VOL: 0
+;PCODE: $00000031 VOL: 0
+;PCODE: $00000032 VOL: 0
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+;    {
+;        number = Digit(value,i);
+;PCODE: $00000035 VOL: 0
+;PCODE: $00000036 VOL: 0
+;PCODE: $00000037 VOL: 0
+;PCODE: $00000038 VOL: 0
+;PCODE: $00000039 VOL: 0
+;        if(number != 0)   //появление перового символа
+;PCODE: $0000003A VOL: 0
+;PCODE: $0000003B VOL: 0
+;        {
+;           flag_first_num = 1;
+;PCODE: $0000003C VOL: 0
+;PCODE: $0000003D VOL: 0
+;        }
+;
+;        if(flag_first_num == 1)
+;PCODE: $0000003E VOL: 0
+;PCODE: $0000003F VOL: 0
+;PCODE: $00000040 VOL: 0
+;PCODE: $00000041 VOL: 0
+;        {
+;
+;            LCD_message(number+'0',DATA);//выводим цифру
+;PCODE: $00000042 VOL: 0
+;PCODE: $00000043 VOL: 0
+;PCODE: $00000044 VOL: 0
+;PCODE: $00000045 VOL: 0
+;PCODE: $00000046 VOL: 0
+;PCODE: $00000047 VOL: 0
+;        }
+;
+;    }
+;PCODE: $00000048 VOL: 0
+;PCODE: $00000049 VOL: 0
+;PCODE: $0000004A VOL: 0
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+;PCODE: $0000004D VOL: 0
+;}
+;PCODE: $0000004E VOL: 0
+;PCODE: $0000004F VOL: 0
+;PCODE: $00000050 VOL: 0
+;PCODE: $00000051 VOL: 0
+;
+;void LCD_message(char message,int type)
+;{
+;PCODE: $00000052 VOL: 0
+;PCODE: $00000053 VOL: 0
+;    //[]--------------------------------------------------[]
+;    //| Назначение: запись кодов в регистр команд ЖКИ |
+;    //| Входные параметры: message - сообщение |
+;    //| Входные параметры: type - тип сообщения (код или данные) |
+;    //[]--------------------------------------------------[]
+;
+;    if(type) // 1
+;PCODE: $00000054 VOL: 0
+;	message -> Y+2
+;	type -> Y+0
+;PCODE: $00000055 VOL: 0
+;PCODE: $00000056 VOL: 0
+;PCODE: $00000057 VOL: 0
+;    PORTD &= ~(1<<RS); // выбор регистра команд RS=0
+;PCODE: $00000058 VOL: 0
+;PCODE: $00000059 VOL: 0
+;    else
+;PCODE: $0000005A VOL: 0
+;PCODE: $0000005B VOL: 0
+;    PORTD |= (1<<RS); // выбор регистра данных RS=1
+;PCODE: $0000005C VOL: 0
+;PCODE: $0000005D VOL: 0
+;    PORTC=message; // записать команду в порт PORTC
+;PCODE: $0000005E VOL: 0
+;PCODE: $0000005F VOL: 0
+;PCODE: $00000060 VOL: 0
+;    PORTD|= (1<<E); // \ сформироватьна
+;PCODE: $00000061 VOL: 0
+;PCODE: $00000062 VOL: 0
+;    delay_us(5); // |выводе E строб 1-0
+;PCODE: $00000063 VOL: 0
+;    PORTD&= ~(1<<E); // / передачи команды
+;PCODE: $00000064 VOL: 0
+;PCODE: $00000065 VOL: 0
+;    delay_ms(3); // задержка для завершения записи
+;PCODE: $00000066 VOL: 0
+;PCODE: $00000067 VOL: 0
+;PCODE: $00000068 VOL: 0
+;
+;}
+;PCODE: $00000069 VOL: 0
+;PCODE: $0000006A VOL: 0
+;PCODE: $0000006B VOL: 0
+;
+;void LCD_init(void)
+;{
+;PCODE: $0000006C VOL: 0
+;PCODE: $0000006D VOL: 0
+;    //[]--------------------------------------------------[]
+;    //| Назначение: инициализация ЖКИ |
+;    //[]--------------------------------------------------[]
+;    DDRC = 0xFF;            // все разряды PORTC на выход
+;PCODE: $0000006E VOL: 0
+;PCODE: $0000006F VOL: 0
+;    DDRD|= ((1<<E)|(1<<RS));// разряды PORTD на выход
+;PCODE: $00000070 VOL: 0
+;PCODE: $00000071 VOL: 0
+;PCODE: $00000072 VOL: 0
+;    delay_ms (100); // задержка для установления
+;PCODE: $00000073 VOL: 0
+;PCODE: $00000074 VOL: 0
+;PCODE: $00000075 VOL: 0
+;                    // напряжения питания
+;    LCD_message(0x30,CMD); // \ вывод
+;PCODE: $00000076 VOL: 0
+;PCODE: $00000077 VOL: 0
+;PCODE: $00000078 VOL: 0
+;PCODE: $00000079 VOL: 0
+;PCODE: $0000007A VOL: 0
+;    LCD_message(0x30,CMD); //| трех
+;PCODE: $0000007B VOL: 0
+;PCODE: $0000007C VOL: 0
+;PCODE: $0000007D VOL: 0
+;PCODE: $0000007E VOL: 0
+;PCODE: $0000007F VOL: 0
+;    LCD_message(0x30,CMD); // / команд 0x30
+;PCODE: $00000080 VOL: 0
+;PCODE: $00000081 VOL: 0
+;PCODE: $00000082 VOL: 0
+;PCODE: $00000083 VOL: 0
+;PCODE: $00000084 VOL: 0
+;    LCD_message(0x38,CMD); //8 разр.шина, 2 строки, 5 ? 7 точек
+;PCODE: $00000085 VOL: 0
+;PCODE: $00000086 VOL: 0
+;PCODE: $00000087 VOL: 0
+;PCODE: $00000088 VOL: 0
+;PCODE: $00000089 VOL: 0
+;    LCD_message(0x0E,CMD); // включить ЖКИ и курсор, без мерцания
+;PCODE: $0000008A VOL: 0
+;PCODE: $0000008B VOL: 0
+;PCODE: $0000008C VOL: 0
+;PCODE: $0000008D VOL: 0
+;PCODE: $0000008E VOL: 0
+;    LCD_message(0x06,CMD); //инкремент курсора, без сдвига экрана
+;PCODE: $0000008F VOL: 0
+;PCODE: $00000090 VOL: 0
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+;PCODE: $00000093 VOL: 0
+;    LCD_message(0x01,CMD); // очистить экран, курсор в начало
+;PCODE: $00000094 VOL: 0
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
+;PCODE: $00000097 VOL: 0
+;PCODE: $00000098 VOL: 0
+;}
+;PCODE: $00000099 VOL: 0
+;PCODE: $0000009A VOL: 0
+;
+;//вывод строковой информации на дисплей
+;void LCD_string(unsigned char* str)
+;{
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+;    while(*str != '\0')
+;PCODE: $0000009D VOL: 0
+;	*str -> Y+0
+;PCODE: $0000009E VOL: 0
+;PCODE: $0000009F VOL: 0
+;PCODE: $000000A0 VOL: 0
+;PCODE: $000000A1 VOL: 0
+;PCODE: $000000A2 VOL: 0
+;    {
+;        LCD_message(Code(*str++),DATA);
+;PCODE: $000000A3 VOL: 0
+;PCODE: $000000A4 VOL: 0
+;PCODE: $000000A5 VOL: 0
+;PCODE: $000000A6 VOL: 0
+;PCODE: $000000A7 VOL: 0
+;PCODE: $000000A8 VOL: 0
+;PCODE: $000000A9 VOL: 0
+;PCODE: $000000AA VOL: 0
+;PCODE: $000000AB VOL: 0
+;        //*str извлечение элемента по адресу в указателе str
+;        //str++ увеличение значение указателя на 1 (т.е. переход к следующему элементу массива)
+;    }
+;PCODE: $000000AC VOL: 0
+;PCODE: $000000AD VOL: 0
+;}
+;PCODE: $000000AE VOL: 0
+;PCODE: $000000AF VOL: 0
+;PCODE: $000000B0 VOL: 0
+;
+;unsigned char Digit (unsigned int d, unsigned char m)
+;{
+;PCODE: $000000B1 VOL: 0
+;PCODE: $000000B2 VOL: 0
+;    //[]-----------------------------------------------------[]
+;    //| Назначение: выделение цифр из разрядов пятиразрядного |
+;    //| десятичного положительного числа |
+;    //| Входные параметры: |
+;    //| d - целое десятичное положительное число |
+;    //| m - номер разряда (от 1 до 5, слева направо) |
+;    //| Функция возвращает значение цифры в разряде m числа d |
+;    //[]-----------------------------------------------------[]
+;    unsigned char i = 5, a;
+;    while(i)
+;PCODE: $000000B3 VOL: 0
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+;	d -> Y+3
+;	m -> Y+2
+;	i -> R17
+;	a -> R16
+;PCODE: $000000B6 VOL: 0
+;PCODE: $000000B7 VOL: 0
+;PCODE: $000000B8 VOL: 0
+;PCODE: $000000B9 VOL: 0
+;PCODE: $000000BA VOL: 0
+;    {
+;        a = d%10; //если d < 0 то a<0
+;PCODE: $000000BB VOL: 0
+;PCODE: $000000BC VOL: 0
+;PCODE: $000000BD VOL: 0
+;PCODE: $000000BE VOL: 0
+;        if(i-- == m) break;
+;PCODE: $000000BF VOL: 0
+;PCODE: $000000C0 VOL: 0
+;PCODE: $000000C1 VOL: 0
+;PCODE: $000000C2 VOL: 0
+;PCODE: $000000C3 VOL: 0
+;PCODE: $000000C4 VOL: 0
+;PCODE: $000000C5 VOL: 0
+;PCODE: $000000C6 VOL: 0
+;        d /= 10;
+;PCODE: $000000C7 VOL: 0
+;PCODE: $000000C8 VOL: 0
+;PCODE: $000000C9 VOL: 0
+;PCODE: $000000CA VOL: 0
+;PCODE: $000000CB VOL: 0
+;    }
+;PCODE: $000000CC VOL: 0
+;PCODE: $000000CD VOL: 0
+;    return(a);
+;PCODE: $000000CE VOL: 0
+;PCODE: $000000CF VOL: 0
+;PCODE: $000000D0 VOL: 0
+;PCODE: $000000D1 VOL: 0
+;PCODE: $000000D2 VOL: 0
+;PCODE: $000000D3 VOL: 0
+;PCODE: $000000D4 VOL: 0
+;}
+;PCODE: $000000D5 VOL: 0
+;
+;unsigned char Code(unsigned char symb)
+;{
+;PCODE: $000000D6 VOL: 0
+;PCODE: $000000D7 VOL: 0
+;    //[]------------------------------------------------[]
+;    //| Назначение: перекодировка символов кириллицы |
+;    //| Входные параметры: symb – символ ASCII |
+;    //| Функция возвращает код отображения символа |
+;    //[]------------------------------------------------[]
+;      unsigned char TabCon[] =
+;    {0x41,0xA0,0x42,0xA1,0xE0,0x45,0xA3,0xA4,0xA5,0xA6,0x4B, 0xA7,0x4D,0x48,0x4F,0xA8,0x50,0x43,0x54,0xA9,0xAA,0x58,
+;    0xE1,0xAB,0xAC,0xE2,0xAD,0xAE,0x62,0xAF,0xB0,0xB1,0x61,
+;    0xB2,0xB3,0xB4,0xE3,0x65,0xB6,0xB7,0xB8,0xB9,0xBA,0xBB,
+;    0xBC,0xBD,0x6F,0xBE,0x70,0x63,0xBF,0x79,0x5C,0x78,0xE5,
+;    0xC0,0xC1,0xE6,0xC2,0xC3,0xC4,0xC5,0xC6,0xC7};//коды символов в кириллице
+;    return (symb >= 192 ? TabCon[symb-192]: symb);
+;PCODE: $000000D8 VOL: 0
+;PCODE: $000000D9 VOL: 0
+;PCODE: $000000DA VOL: 0
+;PCODE: $000000DB VOL: 0
+;PCODE: $000000DC VOL: 0
+;PCODE: $000000DD VOL: 0
+;	symb -> Y+64
+;	TabCon -> Y+0
+;PCODE: $000000DE VOL: 0
+;PCODE: $000000DF VOL: 0
+;PCODE: $000000E0 VOL: 0
+;PCODE: $000000E1 VOL: 0
+;PCODE: $000000E2 VOL: 0
+;PCODE: $000000E3 VOL: 0
+;PCODE: $000000E4 VOL: 0
+;PCODE: $000000E5 VOL: 0
+;PCODE: $000000E6 VOL: 0
+;PCODE: $000000E7 VOL: 0
+;PCODE: $000000E8 VOL: 0
+;PCODE: $000000E9 VOL: 0
+;PCODE: $000000EA VOL: 0
+;PCODE: $000000EB VOL: 0
+;PCODE: $000000EC VOL: 0
+;PCODE: $000000ED VOL: 0
+;}
+;PCODE: $000000EE VOL: 0
+;
+;//очистить дисплей и установить курсор в нулевую позицию(адрес 0 )
+;void clear_display()
+;{
+;PCODE: $000000EF VOL: 0
+;PCODE: $000000F0 VOL: 0
+;    LCD_message(1,CMD);
+;PCODE: $000000F1 VOL: 0
+;PCODE: $000000F2 VOL: 0
+;PCODE: $000000F3 VOL: 0
+;PCODE: $000000F4 VOL: 0
+;PCODE: $000000F5 VOL: 0
+;};
+;PCODE: $000000F6 VOL: 0
+;PCODE: $000000F7 VOL: 0
+;
+;//установить курсор в нулевую позицию, дисплей относительно буфера DDRAM в начальную позицию
+;void default_display()
+;{
+;PCODE: $000000F8 VOL: 0
+;PCODE: $000000F9 VOL: 0
+;    LCD_message(2,CMD);
+;PCODE: $000000FA VOL: 0
+;PCODE: $000000FB VOL: 0
+;PCODE: $000000FC VOL: 0
+;PCODE: $000000FD VOL: 0
+;PCODE: $000000FE VOL: 0
+;};
+;PCODE: $000000FF VOL: 0
+;PCODE: $00000100 VOL: 0
+;
+;//установить направление сдвига курсора при записи кода в DDRAM
+;// и разрешить(запретить) сдвиг окна вместе с курсором
+;// ID = RIGHT
+;// ID = LEFT
+;// S = ON разрешить сдвиг окна вместе с курсором
+;// S = OFF запретить сдвиг окна вместе с курсором
+;void shift_direction(int ID,int S)
+;{
+;PCODE: $00000101 VOL: 0
+;PCODE: $00000102 VOL: 0
+;  LCD_message((1<<2)|(ID<<1)|S,CMD);
+;PCODE: $00000103 VOL: 0
+;	ID -> Y+2
+;	S -> Y+0
+;PCODE: $00000104 VOL: 0
+;PCODE: $00000105 VOL: 0
+;PCODE: $00000106 VOL: 0
+;PCODE: $00000107 VOL: 0
+;PCODE: $00000108 VOL: 0
+;PCODE: $00000109 VOL: 0
+;PCODE: $0000010A VOL: 0
+;PCODE: $0000010B VOL: 0
+;PCODE: $0000010C VOL: 0
+;}
+;PCODE: $0000010D VOL: 0
+;PCODE: $0000010E VOL: 0
+;PCODE: $0000010F VOL: 0
+;
+;//Включить(выключить) индикатор,зажечь(погасить) курсор.Сделать курсор мигающим
+;// B = ON  курсор мигает
+;// B = OFF курсор не  мигает
+;// D = ON  включить индикатор
+;// D = OFF выключить индикатор
+;// C = ON  зажечь курсор
+;// C = OFF погасить курсор
+;void switch_display(int B,int D,int C)
+;{
+;PCODE: $00000110 VOL: 0
+;PCODE: $00000111 VOL: 0
+;    LCD_message((1<<3)|(D<<2)|(C<<1)|B,CMD);
+;PCODE: $00000112 VOL: 0
+;	B -> Y+4
+;	D -> Y+2
+;	C -> Y+0
+;PCODE: $00000113 VOL: 0
+;PCODE: $00000114 VOL: 0
+;PCODE: $00000115 VOL: 0
+;PCODE: $00000116 VOL: 0
+;PCODE: $00000117 VOL: 0
+;PCODE: $00000118 VOL: 0
+;PCODE: $00000119 VOL: 0
+;PCODE: $0000011A VOL: 0
+;PCODE: $0000011B VOL: 0
+;PCODE: $0000011C VOL: 0
+;PCODE: $0000011D VOL: 0
+;PCODE: $0000011E VOL: 0
+;PCODE: $0000011F VOL: 0
+;}
+;PCODE: $00000120 VOL: 0
+;PCODE: $00000121 VOL: 0
+;PCODE: $00000122 VOL: 0
+;
+;//сдвиг курсора или дисплея вправо или влево
+;// choose = DISPLAY
+;// choose = CURSOR
+;// direction = RIGHT
+;// direction = LEFT
+;void shift(int choose,int direction)
+;{
+;PCODE: $00000123 VOL: 0
+;PCODE: $00000124 VOL: 0
+;    LCD_message((1<<4)|(choose<<3)|(direction<<2),CMD);
+;PCODE: $00000125 VOL: 0
+;	choose -> Y+2
+;	direction -> Y+0
+;PCODE: $00000126 VOL: 0
+;PCODE: $00000127 VOL: 0
+;PCODE: $00000128 VOL: 0
+;PCODE: $00000129 VOL: 0
+;PCODE: $0000012A VOL: 0
+;PCODE: $0000012B VOL: 0
+;PCODE: $0000012C VOL: 0
+;PCODE: $0000012D VOL: 0
+;PCODE: $0000012E VOL: 0
+;PCODE: $0000012F VOL: 0
+;PCODE: $00000130 VOL: 0
+;}
+;PCODE: $00000131 VOL: 0
+;PCODE: $00000132 VOL: 0
+;PCODE: $00000133 VOL: 0
+;
+;//установить разрядность шины данных, количество строк, шрифт
+;//data_bus_width = EIGHT 8 бит
+;//data_bus_width = FOUR 4 бит
+;//line_number = ONE 1 строка
+;//line_number = TWO 2 строки
+;//font = LOWERCASE  строчные
+;////font = UPPERCASE  заглавные
+;void display_setting(int data_bus_width,int line_number,int font)
+;{
+;PCODE: $00000134 VOL: 0
+;PCODE: $00000135 VOL: 0
+;    LCD_message((1<<5)|(data_bus_width<<4)|(line_number<<3)|(font<<2),CMD);
+;PCODE: $00000136 VOL: 0
+;	data_bus_width -> Y+4
+;	line_number -> Y+2
+;	font -> Y+0
+;PCODE: $00000137 VOL: 0
+;PCODE: $00000138 VOL: 0
+;PCODE: $00000139 VOL: 0
+;PCODE: $0000013A VOL: 0
+;PCODE: $0000013B VOL: 0
+;PCODE: $0000013C VOL: 0
+;PCODE: $0000013D VOL: 0
+;PCODE: $0000013E VOL: 0
+;PCODE: $0000013F VOL: 0
+;PCODE: $00000140 VOL: 0
+;PCODE: $00000141 VOL: 0
+;PCODE: $00000142 VOL: 0
+;PCODE: $00000143 VOL: 0
+;PCODE: $00000144 VOL: 0
+;PCODE: $00000145 VOL: 0
+;}
+;PCODE: $00000146 VOL: 0
+;PCODE: $00000147 VOL: 0
+;PCODE: $00000148 VOL: 0
+;
+;#define SDA 1
+;#define SCL 0
+;#define DDRX_I2C DDRG
+;#define HIGH(pin) (DDRX_I2C &= (~_BV(pin)))
+;#define LOW(pin) (DDRX_I2C |= _BV(pin))
+;#define PULSE 50 //us
+;
+;void I2C_Start(void){
+;PCODE: $00000149 VOL: 0
+;PCODE: $0000014A VOL: 0
+;     HIGH(SDA);
+;PCODE: $0000014B VOL: 0
+;PCODE: $0000014C VOL: 0
+;PCODE: $0000014D VOL: 0
+;     HIGH(SCL);
+;PCODE: $0000014E VOL: 0
+;PCODE: $0000014F VOL: 0
+;PCODE: $00000150 VOL: 0
+;     delay_us(PULSE);
+;PCODE: $00000151 VOL: 0
+;     LOW(SDA);
+;PCODE: $00000152 VOL: 0
+;PCODE: $00000153 VOL: 0
+;PCODE: $00000154 VOL: 0
+;     delay_us(PULSE);
+;PCODE: $00000155 VOL: 0
+;}
+;PCODE: $00000156 VOL: 0
+;PCODE: $00000157 VOL: 0
+;
+;void I2C_SendByte(unsigned char data)
+;{           //время на передачу 1 бита 3*PULSE  1 байт 24*PULSE
+;PCODE: $00000158 VOL: 0
+;PCODE: $00000159 VOL: 0
+;    unsigned char i;
+;    LOW(SCL);
+;PCODE: $0000015A VOL: 0
+;PCODE: $0000015B VOL: 0
+;	data -> Y+1
+;	i -> R17
+;PCODE: $0000015C VOL: 0
+;PCODE: $0000015D VOL: 0
+;PCODE: $0000015E VOL: 0
+;    delay_us(PULSE);
+;PCODE: $0000015F VOL: 0
+;    for(i=(1<<7);i>0;i=(i>>1))
+;PCODE: $00000160 VOL: 0
+;PCODE: $00000161 VOL: 0
+;PCODE: $00000162 VOL: 0
+;PCODE: $00000163 VOL: 0
+;PCODE: $00000164 VOL: 0
+;PCODE: $00000165 VOL: 0
+;PCODE: $00000166 VOL: 0
+;PCODE: $00000167 VOL: 0
+;    {
+;        if(data & i){HIGH(SDA);}else{LOW(SDA);}
+;PCODE: $00000168 VOL: 0
+;PCODE: $00000169 VOL: 0
+;PCODE: $0000016A VOL: 0
+;PCODE: $0000016B VOL: 0
+;PCODE: $0000016C VOL: 0
+;PCODE: $0000016D VOL: 0
+;PCODE: $0000016E VOL: 0
+;PCODE: $0000016F VOL: 0
+;PCODE: $00000170 VOL: 0
+;PCODE: $00000171 VOL: 0
+;PCODE: $00000172 VOL: 0
+;PCODE: $00000173 VOL: 0
+;PCODE: $00000174 VOL: 0
+;        delay_us(PULSE);
+;PCODE: $00000175 VOL: 0
+;        HIGH(SCL);
+;PCODE: $00000176 VOL: 0
+;PCODE: $00000177 VOL: 0
+;PCODE: $00000178 VOL: 0
+;        delay_us(PULSE);
+;PCODE: $00000179 VOL: 0
+;        LOW(SCL);
+;PCODE: $0000017A VOL: 0
+;PCODE: $0000017B VOL: 0
+;PCODE: $0000017C VOL: 0
+;        delay_us(PULSE);
+;PCODE: $0000017D VOL: 0
+;    }
+;PCODE: $0000017E VOL: 0
+;PCODE: $0000017F VOL: 0
+;PCODE: $00000180 VOL: 0
+;PCODE: $00000181 VOL: 0
+;        LOW(SDA); //чтобы при подтверждении не произошла отправка стоп-состояния
+;PCODE: $00000182 VOL: 0
+;PCODE: $00000183 VOL: 0
+;PCODE: $00000184 VOL: 0
+;        delay_us(PULSE);  //ждем пока ACK бит ведомого станет 1
+;PCODE: $00000185 VOL: 0
+;        //подтверждаем ACK бит
+;        HIGH(SCL);
+;PCODE: $00000186 VOL: 0
+;PCODE: $00000187 VOL: 0
+;PCODE: $00000188 VOL: 0
+;        delay_us(PULSE);
+;PCODE: $00000189 VOL: 0
+;        LOW(SCL);
+;PCODE: $0000018A VOL: 0
+;PCODE: $0000018B VOL: 0
+;PCODE: $0000018C VOL: 0
+;        delay_us(PULSE);
+;PCODE: $0000018D VOL: 0
+;}
+;PCODE: $0000018E VOL: 0
+;PCODE: $0000018F VOL: 0
+;PCODE: $00000190 VOL: 0
+;PCODE: $00000191 VOL: 0
+;PCODE: $00000192 VOL: 0
+;
+;void I2C_Stop(void) { HIGH(SCL); delay_us(PULSE); HIGH(SDA); delay_us(PULSE); }
+;PCODE: $00000193 VOL: 0
+;PCODE: $00000194 VOL: 0
+;PCODE: $00000195 VOL: 0
+;PCODE: $00000196 VOL: 0
+;PCODE: $00000197 VOL: 0
+;PCODE: $00000198 VOL: 0
+;PCODE: $00000199 VOL: 0
+;PCODE: $0000019A VOL: 0
+;PCODE: $0000019B VOL: 0
+;PCODE: $0000019C VOL: 0
+;PCODE: $0000019D VOL: 0
+;PCODE: $0000019E VOL: 0
+;
+;unsigned char I2C_ReadByte(unsigned char ack)
+;{
+;PCODE: $0000019F VOL: 0
+;PCODE: $000001A0 VOL: 0
+;   unsigned char i,readbyte =  0;
+;   HIGH(SDA);
+;PCODE: $000001A1 VOL: 0
+;PCODE: $000001A2 VOL: 0
+;PCODE: $000001A3 VOL: 0
+;	ack -> Y+2
+;	i -> R17
+;	readbyte -> R16
+;PCODE: $000001A4 VOL: 0
+;PCODE: $000001A5 VOL: 0
+;PCODE: $000001A6 VOL: 0
+;PCODE: $000001A7 VOL: 0
+;PCODE: $000001A8 VOL: 0
+;   for(i=(1<<7) ; i > 0 ; i = (i >>1))
+;PCODE: $000001A9 VOL: 0
+;PCODE: $000001AA VOL: 0
+;PCODE: $000001AB VOL: 0
+;PCODE: $000001AC VOL: 0
+;PCODE: $000001AD VOL: 0
+;PCODE: $000001AE VOL: 0
+;PCODE: $000001AF VOL: 0
+;PCODE: $000001B0 VOL: 0
+;   {
+;        HIGH(SCL);
+;PCODE: $000001B1 VOL: 0
+;PCODE: $000001B2 VOL: 0
+;PCODE: $000001B3 VOL: 0
+;        delay_us(PULSE);
+;PCODE: $000001B4 VOL: 0
+;        if(BIT_IS_SET(PING,SDA))
+;PCODE: $000001B5 VOL: 0
+;PCODE: $000001B6 VOL: 0
+;PCODE: $000001B7 VOL: 0
+;        readbyte |= i;
+;PCODE: $000001B8 VOL: 0
+;PCODE: $000001B9 VOL: 0
+;        LOW(SCL);
+;PCODE: $000001BA VOL: 0
+;PCODE: $000001BB VOL: 0
+;PCODE: $000001BC VOL: 0
+;PCODE: $000001BD VOL: 0
+;        delay_us(PULSE);
+;PCODE: $000001BE VOL: 0
+;   }
+;PCODE: $000001BF VOL: 0
+;PCODE: $000001C0 VOL: 0
+;PCODE: $000001C1 VOL: 0
+;PCODE: $000001C2 VOL: 0
+;   if(ack){HIGH(SDA);}else{LOW(SDA);}  //ACK
+;PCODE: $000001C3 VOL: 0
+;PCODE: $000001C4 VOL: 0
+;PCODE: $000001C5 VOL: 0
+;PCODE: $000001C6 VOL: 0
+;PCODE: $000001C7 VOL: 0
+;PCODE: $000001C8 VOL: 0
+;PCODE: $000001C9 VOL: 0
+;PCODE: $000001CA VOL: 0
+;PCODE: $000001CB VOL: 0
+;PCODE: $000001CC VOL: 0
+;PCODE: $000001CD VOL: 0
+;PCODE: $000001CE VOL: 0
+;   delay_us(PULSE);
+;PCODE: $000001CF VOL: 0
+;   HIGH(SCL);
+;PCODE: $000001D0 VOL: 0
+;PCODE: $000001D1 VOL: 0
+;PCODE: $000001D2 VOL: 0
+;   delay_us(PULSE);
+;PCODE: $000001D3 VOL: 0
+;   LOW(SCL);
+;PCODE: $000001D4 VOL: 0
+;PCODE: $000001D5 VOL: 0
+;PCODE: $000001D6 VOL: 0
+;   delay_us(PULSE);
+;PCODE: $000001D7 VOL: 0
+;   //для окончания приема
+;   LOW(SDA);
+;PCODE: $000001D8 VOL: 0
+;PCODE: $000001D9 VOL: 0
+;PCODE: $000001DA VOL: 0
+;   delay_us(PULSE);
+;PCODE: $000001DB VOL: 0
+;   return readbyte;
+;PCODE: $000001DC VOL: 0
+;PCODE: $000001DD VOL: 0
+;PCODE: $000001DE VOL: 0
+;PCODE: $000001DF VOL: 0
+;PCODE: $000001E0 VOL: 0
+;PCODE: $000001E1 VOL: 0
+;PCODE: $000001E2 VOL: 0
+;}
+;PCODE: $000001E3 VOL: 0
+;
+;// Коды команд
+;#define START_CONVERT_T 0x51
+;#define READ_TEMPERATURE 0xAA
+;#define ACCESS_CONFIG 0xAC
+;// Биты регистра конфигурации
+;#define R1 3
+;#define R0 2
+;#define SHOT 0
+;#define W 0
+;#define R 1
+;
+;// Запуск измерения температуры
+;void startConvert(unsigned char address)
+; 0000 0018 {
+;PCODE: $000001E4 VOL: 0
+;PCODE: $000001E5 VOL: 0
+; 0000 0019 I2C_Start();
+;PCODE: $000001E6 VOL: 0
+;	address -> Y+0
+;PCODE: $000001E7 VOL: 0
+; 0000 001A I2C_SendByte( 0b10010000 |(address<<1) | W);
+;PCODE: $000001E8 VOL: 0
+;PCODE: $000001E9 VOL: 0
+;PCODE: $000001EA VOL: 0
+;PCODE: $000001EB VOL: 0
+;PCODE: $000001EC VOL: 0
+;PCODE: $000001ED VOL: 0
+; 0000 001B I2C_SendByte(START_CONVERT_T);
+;PCODE: $000001EE VOL: 0
+;PCODE: $000001EF VOL: 0
+; 0000 001C I2C_Stop();
+;PCODE: $000001F0 VOL: 0
+; 0000 001D }
+;PCODE: $000001F1 VOL: 0
+;PCODE: $000001F2 VOL: 0
+;PCODE: $000001F3 VOL: 0
+;
+;// Функция чтения температуры с датчика
+;int readTemperature(unsigned char address)
+; 0000 0021 {
+;PCODE: $000001F4 VOL: 0
+;PCODE: $000001F5 VOL: 0
+; 0000 0022 int result;
+; 0000 0023 I2C_Start();
+;PCODE: $000001F6 VOL: 0
+;PCODE: $000001F7 VOL: 0
+;PCODE: $000001F8 VOL: 0
+;	address -> Y+2
+;	result -> R16,R17
+;PCODE: $000001F9 VOL: 0
+; 0000 0024 I2C_SendByte( 0b10010000 |(address<<1) | W);
+;PCODE: $000001FA VOL: 0
+;PCODE: $000001FB VOL: 0
+;PCODE: $000001FC VOL: 0
+;PCODE: $000001FD VOL: 0
+;PCODE: $000001FE VOL: 0
+;PCODE: $000001FF VOL: 0
+; 0000 0025 I2C_SendByte(READ_TEMPERATURE);
+;PCODE: $00000200 VOL: 0
+;PCODE: $00000201 VOL: 0
+; 0000 0026 I2C_Start();
+;PCODE: $00000202 VOL: 0
+; 0000 0027 I2C_SendByte( 0b10010000 |(address<<1) | R);
+;PCODE: $00000203 VOL: 0
+;PCODE: $00000204 VOL: 0
+;PCODE: $00000205 VOL: 0
+;PCODE: $00000206 VOL: 0
+;PCODE: $00000207 VOL: 0
+; 0000 0028 result = I2C_ReadByte(0);
+;PCODE: $00000208 VOL: 0
+;PCODE: $00000209 VOL: 0
+;PCODE: $0000020A VOL: 0
+;PCODE: $0000020B VOL: 0
+; 0000 0029 result <<= 8;
+;PCODE: $0000020C VOL: 0
+; 0000 002A result += I2C_ReadByte(1);
+;PCODE: $0000020D VOL: 0
+;PCODE: $0000020E VOL: 0
+;PCODE: $0000020F VOL: 0
+;PCODE: $00000210 VOL: 0
+;PCODE: $00000211 VOL: 0
+; 0000 002B I2C_Stop();
+;PCODE: $00000212 VOL: 0
+; 0000 002C return result/256;
+;PCODE: $00000213 VOL: 0
+;PCODE: $00000214 VOL: 0
+;PCODE: $00000215 VOL: 0
+;PCODE: $00000216 VOL: 0
+;PCODE: $00000217 VOL: 0
+;PCODE: $00000218 VOL: 0
+;PCODE: $00000219 VOL: 0
+;PCODE: $0000021A VOL: 0
+;PCODE: $0000021B VOL: 0
+; 0000 002D }
+;PCODE: $0000021C VOL: 0
+;
+;// Настройка датчика температуры на одиночное
+;// измерение и 9-и битный результат
+;void setDs1631(unsigned char address)
+; 0000 0032 {
+;PCODE: $0000021D VOL: 0
+;PCODE: $0000021E VOL: 0
+; 0000 0033 I2C_Start();
+;PCODE: $0000021F VOL: 0
+;	address -> Y+0
+;PCODE: $00000220 VOL: 0
+; 0000 0034 I2C_SendByte(  0b10010000 |(address<<1) | W);  //
+;PCODE: $00000221 VOL: 0
+;PCODE: $00000222 VOL: 0
+;PCODE: $00000223 VOL: 0
+;PCODE: $00000224 VOL: 0
+;PCODE: $00000225 VOL: 0
+;PCODE: $00000226 VOL: 0
+; 0000 0035 I2C_SendByte(ACCESS_CONFIG);
+;PCODE: $00000227 VOL: 0
+;PCODE: $00000228 VOL: 0
+; 0000 0036 I2C_SendByte(_BV(SHOT));
+;PCODE: $00000229 VOL: 0
+;PCODE: $0000022A VOL: 0
+; 0000 0037 I2C_Stop();
+;PCODE: $0000022B VOL: 0
+; 0000 0038 }
+;PCODE: $0000022C VOL: 0
+;PCODE: $0000022D VOL: 0
+;PCODE: $0000022E VOL: 0
+;
+;void main(void)
+; 0000 003B {
+;PCODE: $0000022F VOL: 0
+; 0000 003C     LCD_init();
+;PCODE: $00000230 VOL: 0
+; 0000 003D     LCD_string("temp(0) = ");
+;PCODE: $00000231 VOL: 0
+;PCODE: $00000232 VOL: 0
+;PCODE: $00000233 VOL: 0
+; 0000 003E     LCD_pos(0,1);
+;PCODE: $00000234 VOL: 0
+;PCODE: $00000235 VOL: 0
+;PCODE: $00000236 VOL: 0
+;PCODE: $00000237 VOL: 0
+; 0000 003F     LCD_string("temp(7) = ");
+;PCODE: $00000238 VOL: 0
+;PCODE: $00000239 VOL: 0
+;PCODE: $0000023A VOL: 0
+; 0000 0040     while(1)
+;PCODE: $0000023B VOL: 0
+; 0000 0041     {
+; 0000 0042         setDs1631(0);
+;PCODE: $0000023C VOL: 0
+;PCODE: $0000023D VOL: 0
+; 0000 0043         startConvert(0);
+;PCODE: $0000023E VOL: 0
+;PCODE: $0000023F VOL: 0
+; 0000 0044         LCD_pos(10,0);
+;PCODE: $00000240 VOL: 0
+;PCODE: $00000241 VOL: 0
+;PCODE: $00000242 VOL: 0
+;PCODE: $00000243 VOL: 0
+; 0000 0045         LCD_uint(readTemperature(0));
+;PCODE: $00000244 VOL: 0
+;PCODE: $00000245 VOL: 0
+;PCODE: $00000246 VOL: 0
+;PCODE: $00000247 VOL: 0
+; 0000 0046         setDs1631(7);
+;PCODE: $00000248 VOL: 0
+;PCODE: $00000249 VOL: 0
+; 0000 0047         startConvert(7);
+;PCODE: $0000024A VOL: 0
+;PCODE: $0000024B VOL: 0
+; 0000 0048         LCD_pos(10,1);
+;PCODE: $0000024C VOL: 0
+;PCODE: $0000024D VOL: 0
+;PCODE: $0000024E VOL: 0
+;PCODE: $0000024F VOL: 0
+; 0000 0049         LCD_uint(readTemperature(7));
+;PCODE: $00000250 VOL: 0
+;PCODE: $00000251 VOL: 0
+;PCODE: $00000252 VOL: 0
+;PCODE: $00000253 VOL: 0
+; 0000 004A         delay_ms(200);
+;PCODE: $00000254 VOL: 0
+;PCODE: $00000255 VOL: 0
+;PCODE: $00000256 VOL: 0
+; 0000 004B     }
+;PCODE: $00000257 VOL: 0
+;PCODE: $00000258 VOL: 0
+; 0000 004C }
+;PCODE: $00000259 VOL: 0
+;PCODE: $0000025A VOL: 0
+;PCODE: $0000025B VOL: 0
+
+	.DSEG
+_0x21:
+	.BYTE 0x16
+;

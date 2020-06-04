@@ -1,0 +1,5 @@
+unsigned int  impulseWidth;
+#define prop  3/250  //0.012 cm/tick
+
+
+ 

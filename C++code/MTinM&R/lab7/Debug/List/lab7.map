@@ -1,0 +1,31 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+segments                                                                          0x0500      12
+_seed                                                                             0x050C       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+Digit                                                                             0x00089     32
+indic_uint                                                                        0x000A9     68
+init_segments                                                                     0x000ED     10
+SPI_init                                                                          0x000F7      6
+SPI_Write                                                                         0x000FD     30
+SPI_Read                                                                          0x0011B     25
+readAD7798                                                                        0x00134     55
+setAd7798                                                                         0x0016B     19
+resetAD7798                                                                       0x0017E     10
+initTimer                                                                         0x00188      6
+startAlarm                                                                        0x0018E      3
+stopAlarm                                                                         0x00191      4
+razr                                                                              0x00195     23
+main                                                                              0x001AC     43

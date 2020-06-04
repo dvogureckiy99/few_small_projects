@@ -1,0 +1,5 @@
+VERSION:3 SOURCE_TIMESTAMP:4F378405
+NODE:C LEVEL:0 LINE:4 "segments -> RAM:????"
+NODE:F LEVEL:0 LINE:5 "Digit(unsigned int val,unsigned char m)"
+NODE:F LEVEL:0 LINE:26 "indic_int(int val)"
+NODE:F LEVEL:0 LINE:77 "init_segments(void)"

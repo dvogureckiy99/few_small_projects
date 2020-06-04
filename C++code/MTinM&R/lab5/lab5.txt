@@ -1,0 +1,15 @@
+    //freq=11.0529    T=90.47 ns =0.09047 us
+    //freq=11.0529/1024=10.7938477 kHz T=92.6453687 us\
+    
+    
+    
+//cm/tick= 1.57 cm/tick= 92.6453687 us/tick * 0.017 cm/us 
+//max time=5.931 ms,max length= 100.798 cm
+// min time=0.0905us, min length=1.57 cm
+
+
+ //freq=11.0529/8=1.382 MHz T=724 ns/tick   
+//cm/tick=  cm/tick= 0.724 us/tick * 0.017 cm/us 
+//max time=6 ms,max length= 100 cm , max tick = 8333     
+//max sum = 
+// min time=0.0905us, min length=1.57 cm

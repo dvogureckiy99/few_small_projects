@@ -1,0 +1,24 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+segments                                                                          0x0500      12
+_seed                                                                             0x050C       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+angle                                                                             R4,R5        2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+Digit                                                                             0x0008D     32
+indic_int                                                                         0x000AD     98
+init_segments                                                                     0x0010F     14
+int1Isr                                                                           0x0011D     48
+main                                                                              0x0014D     21
+abs                                                                               0x00162     10

@@ -1,0 +1,27 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+segments                                                                          0x0500      12
+_seed                                                                             0x050C       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+Kp                                                                                R4,R5        2
+Kd                                                                                R6,R7        2
+f_Kp                                                                              R9           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+Digit                                                                             0x0008F     32
+indic_int                                                                         0x000AF     98
+init_segments                                                                     0x00111     10
+int1Isr                                                                           0x0011B     72
+readAdc                                                                           0x00163     21
+main                                                                              0x00178    154
+abs                                                                               0x00212     10

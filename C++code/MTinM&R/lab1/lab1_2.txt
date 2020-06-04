@@ -1,0 +1,106 @@
+/*
+ * lab1.c
+ *
+ * Created: 11.09.2019 11:46:22
+ * Author: Student   
+ * Обнуляет счетчик при 360 
+ */
+
+#include <define.h>
+
+interrupt [EXT_INT1] void int1Isr(void)
+{
+    // Если прерывание по фронту
+    if(BIT_IS_SET(PIND, 1))
+    {
+        // Настраиваем прерывание на срез
+        EICRA = _BV(ISC11);
+        
+        if(BIT_IS_CLEAR(PIND, 0))
+        {
+            angle+=9;
+        }
+        else    // Если на второй ножке высокий уровень
+        {
+            angle-=9;
+        }
+    }
+    else
+    {
+        // Если прерывание по срезу
+        // Настраиваем прерывание на фронт
+        EICRA = _BV(ISC11) | _BV(ISC10);
+        
+        if(BIT_IS_CLEAR(PIND, 0))
+        {
+            angle-=9;
+        }
+        else        // Если на второй ножке высокий уровень
+        {
+            angle+=9;
+        }
+    }      
+    if(angle>360)
+    {
+        angle=0;
+    }           
+     if(angle<0)
+    {
+        angle=360;
+    } 
+    
+}
+
+// Массив кодов цифр
+const unsigned char segments[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D,0x7D, 0x07, 0x7F, 0x6F};
+unsigned char Digit (unsigned int val, unsigned char m)
+{
+    //[]-----------------------------------------------------[]
+    //| Назначение: выделение цифр из разрядов пятиразрядного |
+    //| десятичного положительного числа |
+    //| Входные параметры: |
+    //| d - целое десятичное положительное число |
+    //| m - номер разряда (от 1 до 5, слева направо) |
+    //| Функция возвращает значение цифры в разряде m числа d |
+    //[]-----------------------------------------------------[]
+    unsigned char i = 5, a ;
+    unsigned int d = val;
+    while(i)
+    { // цикл по разрядам числа
+        a = d%10; // выделяем очередной разряд
+        if(i-- == m) break; // выделен заданный разряд - уходим
+        d /= 10; // уменьшаем число в 10 раз
+    }
+    return(a);
+}
+
+
+
+void main(void)
+{    
+    PORTA =0 ;
+    PORTC =0 ;           
+    DDRA = _BV(DDA1) | _BV(DDA2) | _BV(DDA3) | _BV(DDA4) | _BV(DDA5)  ;
+    DDRC = _BV(DDC0) | _BV(DDC1) | _BV(DDC2) | _BV(DDC3) | _BV(DDC4) | _BV(DDC5) | _BV(DDC6) | _BV(DDC7);
+    #asm("sei");  //разрешение прерываний
+    EICRA = _BV(ISC11) | _BV(ISC10) ;//на фронт
+    EIMSK = _BV(INT1);
+
+while (1)
+    {    
+        unsigned char i = 5;
+        do  
+        {  
+           unsigned int digit;
+           digit=Digit(angle,i); 
+           PORTC = segments[digit]; 
+           BitSet(PORTA,i) ;    
+           delay_us(1)     ;
+           BitClr(PORTA,i) ;
+           i--;
+        }
+        while (i);
+        delay_ms(20);     
+    // Please write your application code here
+    }
+}
