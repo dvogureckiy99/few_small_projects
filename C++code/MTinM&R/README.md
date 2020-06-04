@@ -1,6 +1,6 @@
 # МИКРОПРОЦЕССОРНАЯ ТЕХНИКА В МЕХАТРОНИКЕ И РОБОТОТЕХНИКЕ 
 
-[Сами задания в облаке](https://docs.google.com/open?id=1CA2zf5AFAy3CJsMyXklcW3A3PeOv1WmzH8NK7sJS2tw) или [sfsd](task_googldocs.gdoc)
+[Сами задания в облаке](https://docs.google.com/open?id=1CA2zf5AFAy3CJsMyXklcW3A3PeOv1WmzH8NK7sJS2tw)
 
 [Аннотация к лабораторным работам](Annotation.pdf)
 
