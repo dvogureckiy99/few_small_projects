@@ -7,16 +7,14 @@
 
 В [этой папке](C++code/) код, который на языке C++
 
-# [Дисциплина "Информационные технологии"](C++code/cproj_IT/README.md)
+### [Дисциплина "Информационные технологии"](C++code/cproj_IT/README.md)
 
-# [Дисциплина "микропроцессорные устройства в системах управления"](C++code/MBCS/README.md)
+### [Дисциплина "микропроцессорные устройства в системах управления"](C++code/MBCS/README.md)
 
 Начало курса про имкроконтроллеры. Используется микроконтроллер Chip=ATmega128A
 
-# [Дисциплина "МИКРОПРОЦЕССОРНАЯ ТЕХНИКА В МЕХАТРОНИКЕ 
-И РОБОТОТЕХНИКЕ" ](C++code/MTinM&R/README.md)
+### [Дисциплина "МИКРОПРОЦЕССОРНАЯ ТЕХНИКА В МЕХАТРОНИКЕ И РОБОТОТЕХНИКЕ" ](C++code/MTinM&R/README.md)
 
 Является продолжением общего курса про микроконтроллеры. Используется микроконтроллер Chip=ATmega128A
 
-# [Дисциплина Программирование и основы алгоритмизации в MATLAB / 
-in the discipline Programming and the basics of algorithmization in MATLAB](C++code/P&BoA/README.md)
+### [Дисциплина Программирование и основы алгоритмизации в MATLAB /  in the discipline Programming and the basics of algorithmization in MATLAB](C++code/P&BoA/README.md)
