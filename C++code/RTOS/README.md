@@ -16,10 +16,10 @@
 	- [`___5___`](lab2/main5.c)
 
 	work with time sharing:
-	<img src="lab2/with_time_sharing.gif" width="50" height="300" />
+	<img src="lab2/with_time_sharing.gif" />
 
 	work without time sharing:
-	<img src="lab2/without_time_sharing.gif" width="50" height="300" />
+	<img src="lab2/without_time_sharing.gif"  />
 
 4. [отчет](lab4/4.pdf) и [основная программа](lab4/main.c)
 5. [отчет](lab5/5.pdf) и [основная программа](lab5/main.c)
