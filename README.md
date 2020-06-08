@@ -7,7 +7,7 @@
 
 В [этой папке](C++code/) код, который написан на языке C++
 
-Проекты C++:
+	Проекты C++:
 
 ### [Дисциплина "Информационные технологии"](C++code/cproj_IT/README.md)
 
@@ -19,9 +19,9 @@
 
 Является продолжением общего курса про микроконтроллеры. Используется микроконтроллер Chip=ATmega128A
 
-Проекты MATLAB:
+	Проекты MATLAB:
 
-### [Программирование и основы алгоритмизации в MATLAB /  in the discipline Programming and the basics of algorithmization in MATLAB](matlab/P&BoA/README.md)
+### [`Программирование и основы алгоритмизации в MATLAB /  in the discipline Programming and the basics of algorithmization in MATLAB`](matlab/P&BoA/README.md)
 
 ### [`Дисциплина "Силовая электроника"`](matlab/power_electronic/README.md)
 
