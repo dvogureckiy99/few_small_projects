@@ -6,7 +6,7 @@ sheet = 1;
 izm=8;
 last=izm+1;
 
-%перенос массивов
+%РїРµСЂРµРЅРѕСЃ РјР°СЃСЃРёРІРѕРІ
 col='A';
 I1Range = [col,num2str(2),':',col,num2str(last)];
 I1 = readmatrix(filename,'Sheet',sheet ,'Range',I1Range);
@@ -34,7 +34,7 @@ P2 = readmatrix(filename,'Sheet',sheet ,'Range',P2Range);
 
 data=[P2 cosphi P1 M2 I1 nu n2 s];
 
-data = sortrows(data,1); %сортируем все данные  P2 по возрастанию и меняем остальные , т.к. по нему строим
+data = sortrows(data,1); %СЃРѕСЂС‚РёСЂСѓРµРј РІСЃРµ РґР°РЅРЅС‹Рµ  P2 РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ Рё РјРµРЅВ¤РµРј РѕСЃС‚Р°Р»СЊРЅС‹Рµ , С‚.Рє. РїРѕ РЅРµРјСѓ СЃС‚СЂРѕРёРј
 
     Cellfigparam{1}{1}='k-';
     Cellfigparam{1}{2}=2;
@@ -67,7 +67,7 @@ data = sortrows(data,1); %сортируем все данные  P2 по возрастанию и меняем остал
     ylabel{7}='s';
   
     
- set(0,'DefaultAxesFontSize',14,'DefaultAxesFontName','Times New Roman');%шрифт
+ set(0,'DefaultAxesFontSize',14,'DefaultAxesFontName','Times New Roman');%С€СЂРёС„С‚
   Cellfig{1} = figure('Units', 'normalized', 'OuterPosition', [0 0 1 1],'PaperOrientation','Landscape');
   figure(Cellfig{1});%target figure
 sdvig = 0;%// distance to squeeze the first plot
@@ -87,7 +87,7 @@ sdvig = 0;%// distance to squeeze the first plot
 
      grid on ,hold on   
      y= data(:,i+1);
-%     %интерполяция 
+%     %РёРЅС‚РµСЂРїРѕР»В¤С†РёВ¤ 
      
     switch i
 %         case 1
@@ -195,6 +195,6 @@ sdvig = 0;%// distance to squeeze the first plot
 % folder = 'D:\education\6_sem\Electrical_mashines\labs\7\';
 % prints(name,folder,Cellfig{1});
 % winopen([folder,name]);
-%  close(Cellfig{1}); %закрываем , чтобы не засорять память
+%  close(Cellfig{1}); %Р·Р°РєСЂС‹РІР°РµРј , С‡С‚РѕР±С‹ РЅРµ Р·Р°СЃРѕСЂВ¤С‚СЊ РїР°РјВ¤С‚СЊ
 
 

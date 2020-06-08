@@ -1,7 +1,7 @@
 clc 
 clear
 
-%% начальные условия
+%% РЅР°С‡Р°Р»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
 Udnom=12;
 dU1=10;
 dU2=20;
@@ -17,7 +17,7 @@ m=6;
 E=7;
 
 U2f=U1f/k
-%% параметры тиристора
+%% РїР°СЂР°РјРµС‚СЂС‹ С‚РёСЂРёСЃС‚РѕСЂР°
 rt=1.36*10^-3;
 Utto=1.05;
 
@@ -32,7 +32,7 @@ fprintf('anom=%f \r',anom*180/pi);
 Un=Udnom-E
 Idnom=(Udnom-E)/Rdnom
 Ivsdnom=double(int(sym(Idnom),0,2*pi/3)/(2*pi))
-%% параметры трансформатора
+%% РїР°СЂР°РјРµС‚СЂС‹ С‚СЂР°РЅСЃС„РѕСЂРјР°С‚РѕСЂР°
 syms a;
 Uda=3*sqrt(6)*U2f*cos(a-lambda_max/2+pi/3)/pi;
 Ud0=double(subs(Uda,a,0))
@@ -47,7 +47,7 @@ Z2f=Uktr*U2f/100/I2n
 R2f=Pkz/m1/I2f^2
 x2f=sqrt(Z2f^2-R2f^2)
 L2f=x2f/w
-%% КПД
+%% РљРџР”
 fprintf('%s\r','-------------------------------------KPD');
 Pdnom=Idnom*Un
 Pvs=double(2*Utto*Ivsdnom)
@@ -57,4 +57,4 @@ Pvsp=0.4*Pdnom
 Ppot=double(Pvs+Ptr+Pvsp)
 kpd=double(Pdnom/(Pdnom+Ppot))
 %cos(-lambda_max/2+pi/3)
-fprintf('Время выполнения: %.0f ms',toc*1000);
+fprintf('Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: %.0f ms',toc*1000);

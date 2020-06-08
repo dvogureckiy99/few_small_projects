@@ -1,4 +1,4 @@
-# дисциплина Программирование и основы алгоритмизации в MATLAB /  discipline Programming and the basics of algorithmization in
+# дисциплина Программирование и основы алгоритмизации в MATLAB / discipline "Programming and the basics of algorithmization in MATLAB"
 
 Курсовой проект:
 

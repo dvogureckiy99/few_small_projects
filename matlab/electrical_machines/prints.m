@@ -14,7 +14,7 @@ function prints(name,folder,fig,cut)
    end
    
    if nargin < 4 % cut
-   dos(['pdfcrop ' folder name '.pdf ' folder  name '.pdf']);% & работает в фоновом режиме
+   dos(['pdfcrop ' folder name '.pdf ' folder  name '.pdf']);% & СЂР°Р±РѕС‚Р°РµС‚ РІ С„РѕРЅРѕРІРѕРј СЂРµР¶РёРјРµ
    dos('EXIT');
    end
 end 

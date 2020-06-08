@@ -1,7 +1,7 @@
 clc 
 clear
 
-%начальные условия
+%РЅР°С‡Р°Р»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
 Udnom=12;
 dU1=10;
 dU2=20;
@@ -40,7 +40,7 @@ Ivsdkr=double(Ivsdnom*1.5)
 syms a;
 Uda=3*sqrt(6)*U2f*cos(a)/pi;
 Udan=vpa(Uda/(subs(Uda,a,0)))
-%параметры тиристора
+%РїР°СЂР°РјРµС‚СЂС‹ С‚РёСЂРёСЃС‚РѕСЂР°
 rt=1.36*10^-3;
 Utto=1.05;
 %% 2.1.6
@@ -54,7 +54,7 @@ S=m1*U2f*I2f
 U1l=U1f*sqrt(3)
 U2l=U2f*sqrt(3)
 %6
-%параметры трансформатора
+%РїР°СЂР°РјРµС‚СЂС‹ С‚СЂР°РЅСЃС„РѕСЂРјР°С‚РѕСЂР°
 Uktr=4.5;
 Pkz=400;
 I2n=I2f;
@@ -74,7 +74,7 @@ alpha=[amin*180/pi anom*180/pi amax*180/pi];
 %% 2,1,9
 syms a Id;
 Udag=Ud0*cos(a)-Id*(m*x2f/2/pi+rt*2+R2f*2)-2*Utto;
-%fprintf('Udag=%f при a=%f',double(subs(Udag,
+%fprintf('Udag=%f РїСЂРё a=%f',double(subs(Udag,
 
 % Cellfig{1} = figure('Units', 'normalized', 'OuterPosition', [0 0 1 1],'PaperOrientation','Landscape');
 % hold on,grid on
@@ -91,7 +91,7 @@ Udag=Ud0*cos(a)-Id*(m*x2f/2/pi+rt*2+R2f*2)-2*Utto;
 % y=double(subs(y,Id, Idzn ));
 % plot(Idzn,y,Cellfigparam{1}{1},'LineWidth',Cellfigparam{1}{2}); 
 % limX=max(get(gca,'XTick'));
-% %построение  линии начального напряжения и её подпись
+% %РїРѕСЃС‚СЂРѕРµРЅРёРµ  Р»РёРЅРёРё РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РЅР°РїСЂСЏР¶РµРЅРёСЏ Рё РµС‘ РїРѕРґРїРёСЃСЊ
 % for i=1:limX
 %    liney(i)= Udnach;
 % end
@@ -110,7 +110,7 @@ Udag=Ud0*cos(a)-Id*(m*x2f/2/pi+rt*2+R2f*2)-2*Utto;
 % Idzn=0:1:Idkr;
 % y=double(subs(y,Id, Idzn ));
 % plot(Idzn,y,Cellfigparam{1}{1},'LineWidth',Cellfigparam{1}{2}); 
-% %построение  линии начального напряжения и её подпись
+% %РїРѕСЃС‚СЂРѕРµРЅРёРµ  Р»РёРЅРёРё РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РЅР°РїСЂСЏР¶РµРЅРёСЏ Рё РµС‘ РїРѕРґРїРёСЃСЊ
 % for i=1:limX
 %    liney(i)= Udnach;
 % end
@@ -127,7 +127,7 @@ Udag=Ud0*cos(a)-Id*(m*x2f/2/pi+rt*2+R2f*2)-2*Utto;
 % Idzn=0:1:Idkr;
 % y=double(subs(y,Id, Idzn ));
 % plot(Idzn,y,Cellfigparam{1}{1},'LineWidth',Cellfigparam{1}{2}); 
-% %построение  линии начального напряжения и её подпись
+% %РїРѕСЃС‚СЂРѕРµРЅРёРµ  Р»РёРЅРёРё РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РЅР°РїСЂСЏР¶РµРЅРёСЏ Рё РµС‘ РїРѕРґРїРёСЃСЊ
 % for i=1:limX
 %    liney(i)= Udnach;
 % end
@@ -137,7 +137,7 @@ Udag=Ud0*cos(a)-Id*(m*x2f/2/pi+rt*2+R2f*2)-2*Utto;
 % end
 % text(limX/2,1.03*Udnach,['$U_d(I_d=0)=',num2str(Udnach,4),'B,\alpha_{nom}=',num2str(alpha(2),2),'^{\circ}$'],'Interpreter','latex','FontSize',18);
 % plot(linex,liney,Cellfigparam{2}{1},'LineWidth',Cellfigparam{2}{2});
-% close(Cellfig{1}); %закрываем , чтобы не засорять память
+% close(Cellfig{1}); %Р·Р°РєСЂС‹РІР°РµРј , С‡С‚РѕР±С‹ РЅРµ Р·Р°СЃРѕСЂСЏС‚СЊ РїР°РјСЏС‚СЊ
 
 %% 2.1.10
 fprintf('---------------2.1.10---------------------\r');
@@ -147,8 +147,8 @@ fi1=anom+gnom/2
 fprintf('fi1=%f \r',fi1*180/pi);
 cosfi12=cos(fi1)
 cosfi1=(cos(anom)+cos(anom+gnom))/2
-% расчет Umax
-fprintf('---------------гармоники выпр напр---------------------\r');
+% СЂР°СЃС‡РµС‚ Umax
+fprintf('---------------РіР°СЂРјРѕРЅРёРєРё РІС‹РїСЂ РЅР°РїСЂ---------------------\r');
 nu=1:3;
 fnu=nu.*300
 Ua0=Ud0.*2.*cos(0).*sqrt(1+nu.^2.*36.*tan(0))./(nu.^2.*36-1)
@@ -156,9 +156,9 @@ Uamin=Ud0.*2.*cos(amin).*sqrt(1+nu.^2.*36.*tan(amin))./(nu.^2.*36-1)
 Uamax=Ud0.*2.*cos(amax).*sqrt(1+nu.^2.*36.*tan(amax))./(nu.^2.*36-1)
 Uanom=Ud0.*2.*cos(anom).*sqrt(1+nu.^2.*36.*tan(anom))./(nu.^2.*36-1)
 kpuls=2/(m^2+1)
-fprintf('---------------гармоники тока---------------------\r');
+fprintf('---------------РіР°СЂРјРѕРЅРёРєРё С‚РѕРєР°---------------------\r');
 I2fnom=Idnom*sqrt(2/3)
-fprintf('-----------по формуле Зиновьева----------------\r');
+fprintf('-----------РїРѕ С„РѕСЂРјСѓР»Рµ Р—РёРЅРѕРІСЊРµРІР°----------------\r');
 n(1)=1;
 for i=1:1
    n(2*i)=m*i-1;
@@ -169,11 +169,11 @@ I1fnom=sqrt(sum(I1fn.^2))
 I1fn1=I1fn(1)
 KI=I1fn(1)/I1fnom
 lamda=cosfi1*KI
-%% КПД
+%% РљРџР”
 fprintf('%s\r','-------------------------------------KPD');
 Pvs=2*Utto*Ivsdnom
 Ptr=2*R2f*I2fnom^2
 Pvsp=0.4*Pdnom
 Ppot=double(Pvs+Ptr+Pvsp)
 kpd=double(Pdnom/(Pdnom+Ppot))
-fprintf('Время выполнения: %.0f ms',toc*1000);
+fprintf('Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: %.0f ms',toc*1000);

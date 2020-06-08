@@ -8,14 +8,3 @@
 
 - [отчет](course_work/report.pdf)
 - [скрипты для расчета](course_work/scripts/)
-
-Лабораторные:
-
-3. [отчет](labs/3/SE_3.pdf)
-	- [модели](labs/3/models/)
-	
-3. [отчет](lab3.pdf)
-
-4.-5. [отчет](lab4&5.pdf)
-
-6.	[отчет](lab7.pdf) и [код](lab7.m)
