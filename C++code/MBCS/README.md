@@ -5,7 +5,7 @@ Tasks from discipline "MICROCONTROLLER-BASED CONTROL
 SYSTEMS" of the 3nd course of ETU university.
  Lecturer: Golik Stanislaw Evseevich and Kopuchev  Now I am a student of the 
  4nd course of ETU university located in Russia, Leningrad Region, city St. 
- Petersburg , speciality "Electrical Engineering and Automation". 
+ Petersburg , specialit "Electrical Engineering and Automation". 
  ---
  # Лабораторные
 

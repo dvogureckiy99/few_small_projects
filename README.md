@@ -17,4 +17,12 @@
 
 Является продолжением общего курса про микроконтроллеры. Используется микроконтроллер Chip=ATmega128A
 
-### [Дисциплина Программирование и основы алгоритмизации в MATLAB /  in the discipline Programming and the basics of algorithmization in MATLAB](C++code/P&BoA/README.md)
+### Программирование и основы алгоритмизации в MATLAB /  in the discipline Programming and the basics of algorithmization in MATLAB](matlab/P&BoA/README.md)
+
+### [`Дисциплина "Силовая электроника"`](matlab/power_electronic/README.md)
+
+### [`Дисциплина "Электрические машины"`](matlab/electrical_machines/README.md)
+
+### [`Дисциплина "Теория оптимальноо управления"`](matlab/optimal_control_theory/README.md)
+
+### [`Дисциплина "Программирование ПЛК"`](matlab/programmable_logic_controllers/README.md)
