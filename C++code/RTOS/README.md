@@ -1,0 +1,25 @@
+# Дисциплина "Операционные системы реального времени" / Discipline "Real-Time Operating System" 
+
+### Лабораторные:
+
+В работах использовался микроконтроллер [STM32F411xC/E](STM32F411_datasheet.pdf) и [`__2__`](stm32f411re_datasheet.pdf)
+
+[Ответы на возникшие вопросы в процессе работы.](questions.pdf)
+
+1. [отчет](lab1/1.pdf) и [основная программа](lab1/main.c)
+2. [отчет](lab2/2.pdf)
+	основная программа имеет 5 версий
+	- [`___1___`](lab2/main1.c)
+	- [`___2___`](lab2/main2.c)
+	- [`___3___`](lab2/main3.c)
+	- [`___4___`](lab2/main4.c)
+	- [`___5___`](lab2/main5.c)
+
+	work with time sharing:
+	<img src="lab2/with_time_sharing.gif" width="50" height="300" />
+
+	work without time sharing:
+	<img src="lab2/without_time_sharing.gif" width="50" height="300" />
+
+4. [отчет](lab4/4.pdf) и [основная программа](lab4/main.c)
+5. [отчет](lab5/5.pdf) и [основная программа](lab5/main.c)
