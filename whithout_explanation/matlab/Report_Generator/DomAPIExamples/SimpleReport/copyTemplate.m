@@ -1,0 +1,3 @@
+% Copyright 2016 - 2016 The MathWorks, Inc.
+copyfile( fullfile(matlabroot, 'toolbox\shared\mlreportgen\dom', ...
+   'resources\templates\docx\default.dotx'), 'myTemplate.dotx');

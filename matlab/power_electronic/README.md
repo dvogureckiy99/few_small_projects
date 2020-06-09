@@ -8,3 +8,7 @@
 
 - [отчет](course_work/report.pdf)
 - [скрипты для расчета](course_work/scripts/)
+
+Laboratory:
+
+3. [report](labs/3/SE_3.pdf)
