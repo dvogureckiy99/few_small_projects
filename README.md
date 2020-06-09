@@ -38,3 +38,9 @@
 ### [`Дисциплина "Программирование ПЛК"`](matlab/programmable_logic_controllers/README.md)
 
 ### [`Дисциплина "Моделирование систем управления"`](matlab/SCS/README.md)
+
+	Python projects:
+
+### [`Дисциплина "Машинное зрение"`](python/machine_vision/README.md)
+
+Используется библиотека opencv3 и язык python3
