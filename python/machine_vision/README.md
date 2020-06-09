@@ -14,6 +14,8 @@ Laboratory:
 5. [report](lab5/lab5.pdf)
 	- [task](lab5/lr5.pdf)
 	- [usefully information](lab5/usefull_info.pdf)
+	- [code with sliders for chosen methods 1](lab5/lab5_1.py)
+	- [code with sliders for chosen methods 2](lab5/lab5_2.py)	
 	
 6. [report](lab6/6.pdf)
 	- [task](lab6/lr6.pdf)
